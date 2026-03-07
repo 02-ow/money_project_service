@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wuzl.mapper.MoneyManageMapper">
+
+    <select id="queryMoney" resultType="com.wuzl.domain.VO.MoneyInfoVO">
+        SELECT
+            a.money_type as moneyType,
+            a.unit_price as unitPrice,
+            a.pay_time as payTime
+        FROM money a WHERE a.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>
