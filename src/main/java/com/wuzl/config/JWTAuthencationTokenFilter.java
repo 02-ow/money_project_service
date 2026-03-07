@@ -1,5 +1,6 @@
 package com.wuzl.config;
 
+import com.wuzl.constant.UserContext;
 import com.wuzl.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,13 +42,16 @@ public class JWTAuthencationTokenFilter extends OncePerRequestFilter {
         if(null != autheader && autheader.startsWith(tokenHead)){
             String authToken = autheader.substring(tokenHead.length());
             String username = jwtUtil.getUserNameFromToken(authToken);
+            // 保存token
+            UserContext.setUserId(username);
             //token存在用户名，但未登录
             if(null !=username && null== SecurityContextHolder.getContext().getAuthentication()){
                 //登录
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 //验证token是否有效，重新设置用户对象
                 if(jwtUtil.validateToken(authToken,userDetails)){
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
