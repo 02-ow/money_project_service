@@ -9,6 +9,16 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserLoginMapper {
-
+    /**
+     * 获取用户信息
+     * @param username
+     * @return
+     */
     UserPO getUserInfo(String username);
+
+    /**
+     * 保存用户
+     * @param userPO
+     */
+    void saveUser(UserPO userPO);
 }

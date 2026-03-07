@@ -2,6 +2,7 @@ package com.wuzl.service;
 
 
 import com.wuzl.domain.PO.MyUserDetails;
+import com.wuzl.domain.VO.UserRegisterVO;
 import com.wuzl.domain.VO.UserVO;
 
 /**
@@ -16,4 +17,10 @@ public interface UserLoginService {
     String login(UserVO userVo);
 
     MyUserDetails loadUserByUsername(String username);
+
+    /**
+     * 用户注册
+     * @param userRegisterVO
+     */
+    void register(UserRegisterVO userRegisterVO);
 }

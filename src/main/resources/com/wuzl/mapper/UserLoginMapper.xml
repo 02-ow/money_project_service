@@ -7,7 +7,15 @@
 <mapper namespace="com.wuzl.mapper.UserLoginMapper">
 
     <select id="getUserInfo" resultType="com.wuzl.domain.PO.UserPO">
-        SELECT a.username,a.password FROM user a
+        SELECT a.username,a.password,a.nickname FROM user a
         WHERE a.username = #{username,jdbcType=VARCHAR}
     </select>
+
+    <insert id="saveUser" parameterType="com.wuzl.domain.PO.UserPO">
+        INSERT INTO user (username, password, nickname)
+            VALUES (
+                       #{username,jdbcType=VARCHAR},
+                       #{password,jdbcType=VARCHAR},
+                       #{nickname,jdbcType=VARCHAR})
+    </insert>
 </mapper>
